@@ -17,20 +17,20 @@ const RouteTabs: React.FC = () => {
       barStyle={{ backgroundColor: '#ec135a' }}
     >
       <Tab.Screen
-        name="Main"
+        name="Lista"
         component={Main}
         options={{
           tabBarIcon: (props: { color: '#fff' }) => (
-            <Icon name="format-list-bulleted" size={20} color={props.color} />
+            <Icon name="home" size={20} color={props.color} />
           ),
         }}
       />
       <Tab.Screen
-        name="Cart"
+        name="Carrrinho"
         component={Cart}
         options={{
           tabBarIcon: (props: { color: '#fff' }) => (
-            <Feather name="bookmark" size={20} color={props.color} />
+            <Feather name="shopping-cart" size={20} color={props.color} />
           ),
         }}
       />
