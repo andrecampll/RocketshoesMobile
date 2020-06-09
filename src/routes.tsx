@@ -12,9 +12,9 @@ const Tab = createMaterialBottomTabNavigator();
 const RouteTabs: React.FC = () => {
   return (
     <Tab.Navigator
-      activeColor="#fff"
-      inactiveColor="#000"
-      barStyle={{ backgroundColor: '#ec135a' }}
+      activeColor="#ec135a"
+      inactiveColor="#fff"
+      barStyle={{ backgroundColor: '#333' }}
     >
       <Tab.Screen
         name="Lista"
