@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Image } from 'react-native';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -73,7 +72,7 @@ const Main: React.FC = () => {
       <Header />
       <Container>
         {products.map(product => (
-          <ProductContainer>
+          <ProductContainer key={product.id}>
             <ProductImage source={{ uri: product.image }} />
             <ProductInfo>
               <ProductTitle>{product.title}</ProductTitle>
