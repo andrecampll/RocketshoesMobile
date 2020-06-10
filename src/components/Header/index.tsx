@@ -1,12 +1,21 @@
 import React from 'react';
-// import { connect } from 'react-redux';
+import { connect } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { Wrapper, Container, Logo, BasketContainer, ItemCount } from './styles';
 
-const Header: React.FC = () => {
+interface CartState {
+  cart: {
+    id: number;
+    title: string;
+    price: number;
+    image: string;
+  }[]
+}
+
+const Header: React.FC = ({ cartSize }) => {
   const navigation = useNavigation();
 
   return (
@@ -15,7 +24,7 @@ const Header: React.FC = () => {
         <Logo />
         <BasketContainer onPress={() => navigation.navigate('Cart')}>
           <Icon name="shopping-basket" color="#FFF" size={24} />
-          <ItemCount>{0}</ItemCount>
+          <ItemCount>{cartSize}</ItemCount>
         </BasketContainer>
       </Container>
     </Wrapper>
@@ -29,4 +38,6 @@ const Header: React.FC = () => {
 //   null
 // )(Header);
 
-export default Header;
+export default connect((state: CartState) => ({
+  cartSize: state.cart.length,
+}))(Header);

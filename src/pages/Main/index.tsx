@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { connect, useDispatch } from 'react-redux';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -67,6 +68,15 @@ const Main: React.FC = () => {
     ]);
   }, []);
 
+  const dispatch = useDispatch();
+
+  const handleAddProduct = useCallback((product: Product) => {
+    dispatch({
+      type: 'ADDTOCART',
+      product,
+    });
+  }, []);
+
   return (
     <>
       <Header />
@@ -78,7 +88,7 @@ const Main: React.FC = () => {
               <ProductTitle>{product.title}</ProductTitle>
               <ProductPrice>{product.price}</ProductPrice>
             </ProductInfo>
-            <Button>
+            <Button onPress={() => handleAddProduct(product)}>
               <ProductAmount>
                 <Icon name="add-shopping-cart" color="#FFF" size={20} />
               </ProductAmount>
@@ -91,4 +101,4 @@ const Main: React.FC = () => {
   );
 }
 
-export default Main;
+export default connect()(Main);

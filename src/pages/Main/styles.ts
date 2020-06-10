@@ -33,7 +33,7 @@ export const ProductPrice = styled.Text`
   font-weight: bold;
 `;
 
-export const Button = styled(RectButton)`
+export const Button = styled.TouchableOpacity`
   background-color: #ec135a;
   width: 100%;
   height: 50px;
