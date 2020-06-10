@@ -6,13 +6,16 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { Wrapper, Container, Logo, BasketContainer, ItemCount } from './styles';
 
+interface Product {
+  id: number;
+  title: string;
+  price: number;
+  image: string;
+  amount: string;
+}
+
 interface CartState {
-  cart: {
-    id: number;
-    title: string;
-    price: number;
-    image: string;
-  }[]
+  cart: Product[]
 }
 
 const Header: React.FC = ({ cartSize }) => {

@@ -1,5 +1,5 @@
-import React from 'react';
-import { TextInput } from 'react-native';
+import React, { useCallback } from 'react';
+import { connect } from 'react-redux';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -25,70 +25,55 @@ import {
 
 import Header from '../../components/Header';
 
+interface Product {
+  id: number;
+  title: string;
+  price: number;
+  image: string;
+  amount: string;
+}
 
-const Cart: React.FC = () => {
+interface CartState {
+  cart: Product[]
+}
+
+const Cart: React.FC<CartState> = ({ cart }: CartState) => {
   return (
     <>
       <Header />
       <Background>
         <Container>
-          <Product>
-            <ProductImage source={{ uri: "https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis3.jpg" }} />
-            <ProductInfo>
-              <ProductTitle>Tenis massa</ProductTitle>
-              <ProductPrice>R$ 123,90</ProductPrice>
-            </ProductInfo>
-            <ActionButton>
-              <Icon name="delete" size={20} color="#ec135a" />
-            </ActionButton>
-          </Product>
-          <Divider>
-            <ActionArea>
+          { cart.map(product => (
+          <>
+            <Product key={product.id} >
+              <ProductImage source={{ uri: product.image }} />
+              <ProductInfo>
+                <ProductTitle>{product.title}</ProductTitle>
+                <ProductPrice>{product.price}</ProductPrice>
+              </ProductInfo>
               <ActionButton>
-                <Icon name="remove-circle-outline" size={20} color="#ec135a" />
+                <Icon name="delete" size={20} color="#ec135a" />
               </ActionButton>
+            </Product>
+            <Divider key={product.title} >
+              <ActionArea>
+                <ActionButton>
+                  <Icon name="remove-circle-outline" size={20} color="#ec135a" />
+                </ActionButton>
 
-              <Quantity />
+                <Quantity value={String(product.amount)} />
 
-              <ActionButton>
-              <Icon name="add-circle-outline" size={20} color="#ec135a" />
-            </ActionButton>
-            </ActionArea>
-
-            <Subtotal>
-              R$1231,12
-            </Subtotal>
-          </Divider>
-
-          <Product>
-            <ProductImage source={{ uri: "https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis1.jpg" }} />
-            <ProductInfo>
-              <ProductTitle>Outro Tenis massa</ProductTitle>
-              <ProductPrice>R$ 123,90</ProductPrice>
-            </ProductInfo>
-            <ActionButton>
-              <Icon name="delete" size={20} color="#ec135a" />
-            </ActionButton>
-          </Product>
-          <Divider>
-            <ActionArea>
-              <ActionButton>
-                <Icon name="remove-circle-outline" size={20} color="#ec135a" />
+                <ActionButton>
+                <Icon name="add-circle-outline" size={20} color="#ec135a" />
               </ActionButton>
+              </ActionArea>
 
-              <Quantity />
-
-              <ActionButton>
-              <Icon name="add-circle-outline" size={20} color="#ec135a" />
-            </ActionButton>
-            </ActionArea>
-
-            <Subtotal>
-              R$1231,12
-            </Subtotal>
-          </Divider>
-          
-
+              <Subtotal>
+                R$1231,12
+              </Subtotal>
+            </Divider>
+          </>
+          )) }
           <TotalArea>
             <TotalText>TOTAL</TotalText>
             <Total>R$350,90</Total>
@@ -104,4 +89,8 @@ const Cart: React.FC = () => {
   );
 }
 
-export default Cart;
+const mapStateToProps = (state: any) => ({
+  cart: state.cart,
+});
+
+export default connect(mapStateToProps)(Cart);

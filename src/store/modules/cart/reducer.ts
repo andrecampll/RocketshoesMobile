@@ -12,7 +12,10 @@ interface ICartAction extends Action{
 const Cart: Reducer<any, ICartAction> = (state = [], action: ICartAction) => {
   switch(action.type) {
     case 'ADDTOCART':
-      return [...state, action.product];
+      return [...state, {
+        ...action.product,
+        amount: 1,
+      }];
   
     default:
       return state;
