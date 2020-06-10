@@ -17,7 +17,7 @@ const RouteTabs: React.FC = () => {
       barStyle={{ backgroundColor: '#333' }}
     >
       <Tab.Screen
-        name="Lista"
+        name="Main"
         component={Main}
         options={{
           tabBarIcon: (props: { color: '#fff' }) => (
@@ -26,7 +26,7 @@ const RouteTabs: React.FC = () => {
         }}
       />
       <Tab.Screen
-        name="Carrrinho"
+        name="Cart"
         component={Cart}
         options={{
           tabBarIcon: (props: { color: '#fff' }) => (
