@@ -1,7 +1,7 @@
 import { Reducer } from 'redux';
 
-const cart: Reducer = () => {
+const Cart: Reducer = () => {
   return [];
 };
 
-export default cart;
+export default Cart;
