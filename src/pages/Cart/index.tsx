@@ -1,27 +1,26 @@
 import React from 'react';
+import { TextInput } from 'react-native';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import {
   Container,
-  ProductTable,
-  Thead,
-  Tr,
-  Th,
-  Tbody,
-  Td,
   ProductImage,
+  Background,
+  Product,
   ProductTitle,
+  ProductInfo,
   ProductPrice,
-  Footer,
+  ActionButton,
+  Divider,
+  ActionArea,
+  Subtotal,
+  Quantity,
   Button,
   ButtonText,
+  TotalArea,
+  TotalText,
   Total,
-  Span,
-  Strong,
-  ActionButton,
-  Background,
-  ActionArea,
  } from './styles';
 
 import Header from '../../components/Header';
@@ -33,54 +32,72 @@ const Cart: React.FC = () => {
       <Header />
       <Background>
         <Container>
-          <ProductTable>
-            <Thead>
-              <Tr>
-                <Th />
-                <Th>PRODUTO</Th>
-                <Th>QTD</Th>
-                <Th>SUBTOTAL</Th>
-                <Th />
-              </Tr>
-            </Thead>
+          <Product>
+            <ProductImage source={{ uri: "https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis3.jpg" }} />
+            <ProductInfo>
+              <ProductTitle>Tenis massa</ProductTitle>
+              <ProductPrice>R$ 123,90</ProductPrice>
+            </ProductInfo>
+            <ActionButton>
+              <Icon name="delete" size={20} color="#ec135a" />
+            </ActionButton>
+          </Product>
+          <Divider>
+            <ActionArea>
+              <ActionButton>
+                <Icon name="remove-circle-outline" size={20} color="#ec135a" />
+              </ActionButton>
 
-            <Tbody>
-              <Tr>
-                <Td>
-                  <ProductImage source={{ uri: "https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis3.jpg" }} />
-                </Td>
-                <Td>
-                  <ProductTitle>Tenis massa</ProductTitle>
-                  <ProductPrice>R$1231,90</ProductPrice>
-                </Td>
-                <ActionArea>
-                  <ActionButton>
-                    <Icon size={20} name="add-circle-outline" />
-                  </ActionButton>
-                  <ActionButton>
-                    <Icon size={20} name="remove-circle-outline" />
-                  </ActionButton>
-                </ActionArea>
-                <Td>
-                  <Strong>R$3123,91</Strong>
-                </Td>
-                <ActionButton>
-                  <Icon size={20} name="delete" />
-                </ActionButton>
-              </Tr>
-            </Tbody>
-          </ProductTable>
+              <Quantity />
 
-          <Footer>
-            <Button>
-              <ButtonText>Finalizar</ButtonText>
-            </Button>
+              <ActionButton>
+              <Icon name="add-circle-outline" size={20} color="#ec135a" />
+            </ActionButton>
+            </ActionArea>
 
-            <Total>
-              <Span>TOTAL</Span>
-              <Strong>R$1231,90</Strong>
-            </Total>
-          </Footer>
+            <Subtotal>
+              R$1231,12
+            </Subtotal>
+          </Divider>
+
+          <Product>
+            <ProductImage source={{ uri: "https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis1.jpg" }} />
+            <ProductInfo>
+              <ProductTitle>Outro Tenis massa</ProductTitle>
+              <ProductPrice>R$ 123,90</ProductPrice>
+            </ProductInfo>
+            <ActionButton>
+              <Icon name="delete" size={20} color="#ec135a" />
+            </ActionButton>
+          </Product>
+          <Divider>
+            <ActionArea>
+              <ActionButton>
+                <Icon name="remove-circle-outline" size={20} color="#ec135a" />
+              </ActionButton>
+
+              <Quantity />
+
+              <ActionButton>
+              <Icon name="add-circle-outline" size={20} color="#ec135a" />
+            </ActionButton>
+            </ActionArea>
+
+            <Subtotal>
+              R$1231,12
+            </Subtotal>
+          </Divider>
+          
+
+          <TotalArea>
+            <TotalText>TOTAL</TotalText>
+            <Total>R$350,90</Total>
+          </TotalArea>
+          <Button>
+            <ButtonText>
+              FINALIZAR PEDIDO
+            </ButtonText>
+          </Button>
         </Container>
       </Background>
     </>
