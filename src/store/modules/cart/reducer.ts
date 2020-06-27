@@ -3,6 +3,7 @@ import produce from 'immer';
 
 interface ICartAction extends Action{
   id ?: number;
+  amount : number;
   product: {
     id: number;
     title: string;
@@ -34,6 +35,19 @@ const Cart: Reducer<any, ICartAction> = (state = [], action: ICartAction) => {
           draft.splice(productIndex, 1);
         }
       });
+    case '@cart/UPDATE_AMOUNT':{
+      if (action.amount <= 0) {
+        return state;
+      }
+
+      return produce(state, (draft: any[]) => {
+        const productIndex = draft.findIndex(product => product.id === action.id);
+
+        if (productIndex >= 0) {
+          draft[productIndex].amount = Number(action.amount);
+        }
+      });
+    }
 
     default:
       return state;

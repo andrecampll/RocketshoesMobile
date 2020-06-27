@@ -33,14 +33,22 @@ interface Product {
   title: string;
   price: number;
   image: string;
-  amount: string;
+  amount: number;
 }
 
 interface CartState {
   cart: Product[]
 }
 
-const Cart: React.FC<CartState> = ({ cart, removeFromCart }: CartState) => {
+const Cart: React.FC<CartState> = ({ cart, removeFromCart, updateAmount }: CartState) => {
+  const increment = useCallback((product: Product) => {
+    updateAmount(product.id, product.amount + 1);
+  }, []);
+  
+  const decrement = useCallback((product: Product) => {
+    updateAmount(product.id, product.amount - 1);
+  }, []);
+  
   return (
     <>
       <Header />
@@ -60,13 +68,13 @@ const Cart: React.FC<CartState> = ({ cart, removeFromCart }: CartState) => {
             </Product>
             <Divider key={product.title} >
               <ActionArea>
-                <ActionButton>
+                <ActionButton onPress={() => decrement(product)} >
                   <Icon name="remove-circle-outline" size={20} color="#ec135a" />
                 </ActionButton>
 
                 <Quantity value={String(product.amount)} />
 
-                <ActionButton>
+                <ActionButton onPress={() => increment(product)}>
                 <Icon name="add-circle-outline" size={20} color="#ec135a" />
               </ActionButton>
               </ActionArea>
