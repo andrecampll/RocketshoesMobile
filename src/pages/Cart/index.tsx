@@ -37,7 +37,7 @@ interface CartState {
   cart: Product[]
 }
 
-const Cart: React.FC<CartState> = ({ cart }: CartState) => {
+const Cart: React.FC<CartState> = ({ cart, dispatch }: CartState) => {
   return (
     <>
       <Header />
@@ -51,7 +51,10 @@ const Cart: React.FC<CartState> = ({ cart }: CartState) => {
                 <ProductTitle>{product.title}</ProductTitle>
                 <ProductPrice>{product.price}</ProductPrice>
               </ProductInfo>
-              <ActionButton>
+              <ActionButton onPress={() => dispatch({
+                type: 'REMOVEFROMCART',
+                id: product.id
+              })}>
                 <Icon name="delete" size={20} color="#ec135a" />
               </ActionButton>
             </Product>

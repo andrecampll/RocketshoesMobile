@@ -2,6 +2,7 @@ import { Reducer, Action, } from 'redux';
 import produce from 'immer';
 
 interface ICartAction extends Action{
+  id ?: number;
   product: {
     id: number;
     title: string;
@@ -25,6 +26,15 @@ const Cart: Reducer<any, ICartAction> = (state = [], action: ICartAction) => {
           });
         }
       });
+    case 'REMOVEFROMCART':
+      return produce(state, (draft: any[]) => {
+        const productIndex = draft.findIndex(product => product.id === action.id);
+
+        if (productIndex >= 0) {
+          draft.splice(productIndex, 1);
+        }
+      });
+
     default:
       return state;
   }
