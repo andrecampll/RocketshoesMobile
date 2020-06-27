@@ -34,13 +34,14 @@ interface Product {
   price: number;
   image: string;
   amount: number;
+  subtotal: number;
 }
 
 interface CartState {
   cart: Product[]
 }
 
-const Cart: React.FC<CartState> = ({ cart, removeFromCart, updateAmount }: CartState) => {
+const Cart: React.FC<CartState> = ({ cart, total, removeFromCart, updateAmount }: CartState) => {
   const increment = useCallback((product: Product) => {
     updateAmount(product.id, product.amount + 1);
   }, []);
@@ -80,14 +81,14 @@ const Cart: React.FC<CartState> = ({ cart, removeFromCart, updateAmount }: CartS
               </ActionArea>
 
               <Subtotal>
-                R$1231,12
+                {product.subtotal}
               </Subtotal>
             </Divider>
           </>
           )) }
           <TotalArea>
             <TotalText>TOTAL</TotalText>
-            <Total>R$350,90</Total>
+            <Total>{total}</Total>
           </TotalArea>
           <Button>
             <ButtonText>
@@ -101,7 +102,13 @@ const Cart: React.FC<CartState> = ({ cart, removeFromCart, updateAmount }: CartS
 }
 
 const mapStateToProps = (state: any) => ({
-  cart: state.cart,
+  cart: state.cart.map((product: Product) => ({
+    ...product,
+    subtotal: product.price * product.amount,
+  })),
+  total: state.cart.reduce((total, product) => {
+    return total + product.price * product.amount;
+  }, 0),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
