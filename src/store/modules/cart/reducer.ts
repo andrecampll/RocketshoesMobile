@@ -1,4 +1,5 @@
-import { Reducer, Action, CombinedState } from 'redux';
+import { Reducer, Action, } from 'redux';
+import produce from 'immer';
 
 interface ICartAction extends Action{
   product: {
@@ -16,7 +17,6 @@ const Cart: Reducer<any, ICartAction> = (state = [], action: ICartAction) => {
         ...action.product,
         amount: 1,
       }];
-  
     default:
       return state;
   }

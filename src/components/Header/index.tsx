@@ -18,7 +18,7 @@ interface CartState {
   cart: Product[]
 }
 
-const Header: React.FC = ({ cartSize }) => {
+const Header: React.FC = ({ cart }) => {
   const navigation = useNavigation();
 
   return (
@@ -27,7 +27,7 @@ const Header: React.FC = ({ cartSize }) => {
         <Logo />
         <BasketContainer onPress={() => navigation.navigate('Cart')}>
           <Icon name="shopping-basket" color="#FFF" size={24} />
-          <ItemCount>{cartSize}</ItemCount>
+          <ItemCount>{cart.length}</ItemCount>
         </BasketContainer>
       </Container>
     </Wrapper>
@@ -42,5 +42,5 @@ const Header: React.FC = ({ cartSize }) => {
 // )(Header);
 
 export default connect((state: CartState) => ({
-  cartSize: state.cart.length,
+  cart: state.cart,
 }))(Header);
