@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { connect, useDispatch } from 'react-redux';
 
+import { bindActionCreators, Dispatch, ActionCreator } from 'redux';
+import * as CartActions from '../../store/modules/cart/actions';
+
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import Header from '../../components/Header';
@@ -24,7 +27,7 @@ interface Product {
   image: string;
 }
 
-const Main: React.FC = () => {
+const Main: React.FC = ({ addToCart }: any) => {
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
@@ -68,13 +71,8 @@ const Main: React.FC = () => {
     ]);
   }, []);
 
-  const dispatch = useDispatch();
-
   const handleAddProduct = useCallback((product: Product) => {
-    dispatch({
-      type: 'ADDTOCART',
-      product,
-    });
+    addToCart(product);
   }, []);
 
   return (
@@ -101,4 +99,7 @@ const Main: React.FC = () => {
   );
 }
 
-export default connect()(Main);
+const mapDispatchToProps = (dispatch: Dispatch) =>
+  bindActionCreators(CartActions, dispatch)
+
+export default connect(null, mapDispatchToProps)(Main);

@@ -13,7 +13,7 @@ interface ICartAction extends Action{
 
 const Cart: Reducer<any, ICartAction> = (state = [], action: ICartAction) => {
   switch(action.type) {
-    case 'ADDTOCART':
+    case '@cart/ADD':
       return produce(state, (draft: any[]) => {
         const productIndex = draft.findIndex(product => product.id === action.product.id);
 
@@ -26,7 +26,7 @@ const Cart: Reducer<any, ICartAction> = (state = [], action: ICartAction) => {
           });
         }
       });
-    case 'REMOVEFROMCART':
+    case '@cart/REMOVE':
       return produce(state, (draft: any[]) => {
         const productIndex = draft.findIndex(product => product.id === action.id);
 

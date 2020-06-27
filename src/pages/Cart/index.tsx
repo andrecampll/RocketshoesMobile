@@ -1,6 +1,9 @@
 import React, { useCallback } from 'react';
 import { connect } from 'react-redux';
 
+import { bindActionCreators, Dispatch } from 'redux';
+import * as CartActions from '../../store/modules/cart/actions';
+
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import {
@@ -37,7 +40,7 @@ interface CartState {
   cart: Product[]
 }
 
-const Cart: React.FC<CartState> = ({ cart, dispatch }: CartState) => {
+const Cart: React.FC<CartState> = ({ cart, removeFromCart }: CartState) => {
   return (
     <>
       <Header />
@@ -51,10 +54,7 @@ const Cart: React.FC<CartState> = ({ cart, dispatch }: CartState) => {
                 <ProductTitle>{product.title}</ProductTitle>
                 <ProductPrice>{product.price}</ProductPrice>
               </ProductInfo>
-              <ActionButton onPress={() => dispatch({
-                type: 'REMOVEFROMCART',
-                id: product.id
-              })}>
+              <ActionButton onPress={() => removeFromCart(product.id)}>
                 <Icon name="delete" size={20} color="#ec135a" />
               </ActionButton>
             </Product>
@@ -96,4 +96,7 @@ const mapStateToProps = (state: any) => ({
   cart: state.cart,
 });
 
-export default connect(mapStateToProps)(Cart);
+const mapDispatchToProps = (dispatch: Dispatch) =>
+  bindActionCreators(CartActions, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);
