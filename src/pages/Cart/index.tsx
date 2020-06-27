@@ -41,7 +41,7 @@ interface CartState {
   cart: Product[]
 }
 
-const Cart: React.FC<CartState> = ({ cart, total, removeFromCart, updateAmount }: CartState) => {
+const Cart: React.FC<CartState> = ({ cart, total, removeFromCart, updateAmount }: any) => {
   const increment = useCallback((product: Product) => {
     updateAmount(product.id, product.amount + 1);
   }, []);

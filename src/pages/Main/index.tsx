@@ -25,9 +25,10 @@ interface Product {
   title: string;
   price: number;
   image: string;
+  amount: number;
 }
 
-const Main: React.FC = ({ addToCart }: any) => {
+const Main: React.FC = ({ addToCart, amount }: any) => {
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
@@ -89,6 +90,7 @@ const Main: React.FC = ({ addToCart }: any) => {
             <Button onPress={() => handleAddProduct(product)}>
               <ProductAmount>
                 <Icon name="add-shopping-cart" color="#FFF" size={20} />
+                <ButtonText>{amount[product.id] || 0}</ButtonText>
               </ProductAmount>
               <ButtonText>ADD TO CART</ButtonText>
             </Button>
@@ -99,7 +101,15 @@ const Main: React.FC = ({ addToCart }: any) => {
   );
 }
 
+const mapStateToProps = (state: any) => ({
+  amount: state.cart.reduce((amount: any, product: Product) => {
+    amount[product.id] = product.amount;
+
+    return amount;
+  }, {}),
+});
+
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(CartActions, dispatch)
 
-export default connect(null, mapDispatchToProps)(Main);
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
