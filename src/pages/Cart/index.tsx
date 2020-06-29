@@ -42,13 +42,13 @@ interface CartState {
   cart: Product[]
 }
 
-const Cart: React.FC<CartState> = ({ cart, total, removeFromCart, updateAmount }: any) => {
+const Cart: React.FC<CartState> = ({ cart, total, removeFromCart, updateAmountRequest }: any) => {
   const increment = useCallback((product: Product) => {
-    updateAmount(product.id, product.amount + 1);
+    updateAmountRequest(product.id, product.amount + 1);
   }, []);
   
   const decrement = useCallback((product: Product) => {
-    updateAmount(product.id, product.amount - 1);
+    updateAmountRequest(product.id, product.amount - 1);
   }, []);
   
   return (

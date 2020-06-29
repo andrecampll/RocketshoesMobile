@@ -28,11 +28,7 @@ const Cart: Reducer<any, ICartAction> = (state = [], action: ICartAction) => {
           draft.splice(productIndex, 1);
         }
       });
-    case '@cart/UPDATE_AMOUNT':{
-      if (action.amount <= 0) {
-        return state;
-      }
-
+    case '@cart/UPDATE_AMOUNT_SUCCESS':{
       return produce(state, (draft: any[]) => {
         const productIndex = draft.findIndex(product => product.id === action.id);
 
