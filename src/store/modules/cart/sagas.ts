@@ -3,6 +3,7 @@ import { call, select, put, all, takeLatest } from 'redux-saga/effects';
 import api from '../../../services/api';
 
 import { addToCartSuccess, updateAmount } from './actions';
+import { Alert } from 'react-native';
 
 function* addToCart({ id }: any ) {
   const productExists = yield select(
@@ -17,6 +18,7 @@ function* addToCart({ id }: any ) {
   const amount = currentAmount + 1;
 
   if (amount > stockAmount) {
+    Alert.alert('Produto fora do estoque!');
     return;
   }
 
