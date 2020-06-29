@@ -3,6 +3,7 @@ import { connect, useDispatch } from 'react-redux';
 
 import { bindActionCreators, Dispatch, ActionCreator } from 'redux';
 import * as CartActions from '../../store/modules/cart/actions';
+import api from '../../services/api';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -28,52 +29,17 @@ interface Product {
   amount: number;
 }
 
-const Main: React.FC = ({ addToCart, amount }: any) => {
+const Main: React.FC = ({ addToCartRequest, amount }: any) => {
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
-    setProducts([
-      {
-        id: 1,
-        title: "Tênis de Caminhada Leve e muito Confortável",
-        price: 179.9,
-        image: "https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis1.jpg"
-      },
-      {
-        id: 2,
-        title: "Tênis VR Caminhada Confortável Detalhes Couro Masculino",
-        price: 139.9,
-        image: "https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis2.jpg"
-      },
-      {
-        id: 3,
-        title: "Tênis Adidas Duramo Lite 2.0",
-        price: 219.9,
-        image: "https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis3.jpg"
-      },
-      {
-        id: 5,
-        title: "Tênis VR Caminhada Confortável Detalhes Couro Masculino",
-        price: 139.9,
-        image: "https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis2.jpg"
-      },
-      {
-        id: 6,
-        title: "Tênis Adidas Duramo Lite 2.0",
-        price: 219.9,
-        image: "https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis3.jpg"
-      },
-      {
-        id: 4,
-        title: "Tênis de Caminhada Leve Confortável",
-        price: 179.9,
-        image: "https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis1.jpg"
-      }
-    ]);
+    api.get('products').then(response => {
+      setProducts(response.data);
+    });
   }, []);
 
-  const handleAddProduct = useCallback((product: Product) => {
-    addToCart(product);
+  const handleAddProduct = useCallback((id: number) => {
+    addToCartRequest(id);
   }, []);
 
   return (
@@ -87,7 +53,7 @@ const Main: React.FC = ({ addToCart, amount }: any) => {
               <ProductTitle>{product.title}</ProductTitle>
               <ProductPrice>{product.price}</ProductPrice>
             </ProductInfo>
-            <Button onPress={() => handleAddProduct(product)}>
+            <Button onPress={() => handleAddProduct(product.id)}>
               <ProductAmount>
                 <Icon name="add-shopping-cart" color="#FFF" size={20} />
                 <ButtonText>{amount[product.id] || 0}</ButtonText>

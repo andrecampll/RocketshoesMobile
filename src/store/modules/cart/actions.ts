@@ -5,9 +5,16 @@ interface Product {
   image: string;
 }
 
-export function addToCart(product: Product) {
+export function addToCartRequest(id: number) {
   return {
-    type: '@cart/ADD',
+    type: '@cart/ADD_REQUEST',
+    id,
+  };
+}
+
+export function addToCartSuccess(product: Product) {
+  return {
+    type: '@cart/ADD_SUCCESS',
     product,
   };
 }

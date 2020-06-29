@@ -14,7 +14,7 @@ interface ICartAction extends Action{
 
 const Cart: Reducer<any, ICartAction> = (state = [], action: ICartAction) => {
   switch(action.type) {
-    case '@cart/ADD':
+    case '@cart/ADD_SUCCESS':
       return produce(state, (draft: any[]) => {
         const productIndex = draft.findIndex(product => product.id === action.product.id);
 
