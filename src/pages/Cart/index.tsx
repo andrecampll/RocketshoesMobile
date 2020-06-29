@@ -35,6 +35,7 @@ interface Product {
   image: string;
   amount: number;
   subtotal: number;
+  priceFormatted: string;
 }
 
 interface CartState {
@@ -55,7 +56,7 @@ const Cart: React.FC<CartState> = ({ cart, total, removeFromCart, updateAmount }
       <Header />
       <Background>
         <Container>
-          { cart.map(product => (
+          { cart.map((product: Product) => (
           <>
             <Product key={product.id} >
               <ProductImage source={{ uri: product.image }} />
