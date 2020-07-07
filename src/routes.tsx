@@ -1,41 +1,34 @@
 import React from 'react';
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
 
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import Feather from 'react-native-vector-icons/Feather';
+import Details from './pages/Details';
 
-import Main from './pages/Main';
-import Cart from './pages/Cart';
+import Tabs from './tabs.routes';
 
-const Tab = createMaterialBottomTabNavigator();
+const Stack = createStackNavigator();
 
-const RouteTabs: React.FC = () => {
+const Nav: React.FC = () => {
   return (
-    <Tab.Navigator
-      activeColor="#ec135a"
-      inactiveColor="#fff"
-      barStyle={{ backgroundColor: '#333' }}
-    >
-      <Tab.Screen
-        name="Main"
-        component={Main}
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Routes"
+        component={Tabs}
         options={{
-          tabBarIcon: (props: { color: '#fff' }) => (
-            <Icon name="home" size={20} color={props.color} />
-          ),
+          headerShown: false,
+          headerTransparent: true,
         }}
       />
-      <Tab.Screen
-        name="Cart"
-        component={Cart}
+      <Stack.Screen
+        name="Detalhes"
+        component={Details}
         options={{
-          tabBarIcon: (props: { color: '#fff' }) => (
-            <Feather name="shopping-cart" size={20} color={props.color} />
-          ),
+          headerStyle: { backgroundColor: '#ec135a' },
+          headerTintColor: '#fff',
         }}
       />
-    </Tab.Navigator>
+    </Stack.Navigator>
   );
 };
 
-export default RouteTabs;
+export default Nav;
