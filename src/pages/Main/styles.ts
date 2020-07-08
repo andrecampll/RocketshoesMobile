@@ -9,7 +9,7 @@ export const Container = styled.ScrollView`
 `;
 
 
-export const ProductContainer = styled.View`
+export const ProductContainer = styled.TouchableOpacity`
   align-items: center;
   background-color: #fff;
   margin: 10px 0;

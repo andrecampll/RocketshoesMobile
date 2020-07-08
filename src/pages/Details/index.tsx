@@ -1,8 +1,10 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
 import { bindActionCreators, Dispatch } from 'redux';
 import * as CartActions from '../../store/modules/cart/actions';
+
+import api from '../../services/api';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -25,8 +27,7 @@ import {
   TotalText,
   Total,
  } from './styles';
-
-import Header from '../../components/Header';
+import { useRoute } from '@react-navigation/native';
 
 interface Product {
   id: number;
@@ -42,7 +43,26 @@ interface CartState {
   cart: Product[]
 }
 
+interface RouteParams {
+  productId: string;
+}
+
 const Cart: React.FC<CartState> = ({ cart, total, removeFromCart, updateAmountRequest }: any) => {
+  const [product, setProduct] = useState<Product>(undefined);
+  
+  const route = useRoute();
+
+  const routeParams = route.params as RouteParams;
+
+  useEffect(() => {
+    const { productId } = routeParams;
+
+    api.get(`/products/${productId}`).then(response => {
+      setProduct(response.data);
+      console.log(product)
+    })
+  }, []);
+  
   const increment = useCallback((product: Product) => {
     updateAmountRequest(product.id, product.amount + 1);
   }, []);
@@ -50,10 +70,10 @@ const Cart: React.FC<CartState> = ({ cart, total, removeFromCart, updateAmountRe
   const decrement = useCallback((product: Product) => {
     updateAmountRequest(product.id, product.amount - 1);
   }, []);
+
   
   return (
     <>
-      <Header />
       <Background>
         <Container>
           { cart.map((product: Product) => (
@@ -107,7 +127,7 @@ const mapStateToProps = (state: any) => ({
     ...product,
     subtotal: product.price * product.amount,
   })),
-  total: state.cart.reduce((total, product) => {
+  total: state.cart.reduce((total: number, product: Product) => {
     return total + product.price * product.amount;
   }, 0),
 });

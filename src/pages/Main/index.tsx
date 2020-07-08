@@ -20,6 +20,7 @@ import {
   ProductInfo,
   ProductAmount,
 } from './styles';
+import { useNavigation } from '@react-navigation/native';
 
 interface Product {
   id: number;
@@ -31,6 +32,8 @@ interface Product {
 
 const Main: React.FC = ({ addToCartRequest, amount }: any) => {
   const [products, setProducts] = useState<Product[]>([]);
+  const { navigate } = useNavigation();
+
 
   useEffect(() => {
     api.get('products').then(response => {
@@ -42,12 +45,18 @@ const Main: React.FC = ({ addToCartRequest, amount }: any) => {
     addToCartRequest(id);
   }, []);
 
+  const handleNavigate = useCallback((productId: number) => {
+    navigate('Details', {
+      productId,
+    });
+  }, []);
+
   return (
     <>
       <Header />
       <Container>
         {products.map(product => (
-          <ProductContainer key={product.id}>
+          <ProductContainer key={product.id} onPress={() => {handleNavigate(product.id)}} >
             <ProductImage source={{ uri: product.image }} />
             <ProductInfo>
               <ProductTitle>{product.title}</ProductTitle>

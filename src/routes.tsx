@@ -1,6 +1,5 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { NavigationContainer } from '@react-navigation/native';
 
 import Details from './pages/Details';
 
@@ -20,10 +19,10 @@ const Nav: React.FC = () => {
         }}
       />
       <Stack.Screen
-        name="Detalhes"
+        name="Details"
         component={Details}
         options={{
-          headerStyle: { backgroundColor: '#ec135a' },
+          headerStyle: { backgroundColor: '#333' },
           headerTintColor: '#fff',
         }}
       />
