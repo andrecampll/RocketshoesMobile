@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { ActivityIndicator } from 'react-native';
 import { connect, useDispatch } from 'react-redux';
 
 import { bindActionCreators, Dispatch, ActionCreator } from 'redux';
@@ -19,6 +20,7 @@ import {
   ButtonText,
   ProductInfo,
   ProductAmount,
+  ActivityArea,
 } from './styles';
 import { useNavigation } from '@react-navigation/native';
 
@@ -32,12 +34,14 @@ interface Product {
 
 const Main: React.FC = ({ addToCartRequest, amount }: any) => {
   const [products, setProducts] = useState<Product[]>([]);
-  const { navigate } = useNavigation();
+  const [loading, setLoading] = useState<Boolean>(true);
 
+  const { navigate } = useNavigation();
 
   useEffect(() => {
     api.get('products').then(response => {
       setProducts(response.data);
+      setLoading(false);
     });
   }, []);
 
@@ -55,22 +59,29 @@ const Main: React.FC = ({ addToCartRequest, amount }: any) => {
     <>
       <Header />
       <Container>
-        {products.map(product => (
-          <ProductContainer key={product.id} onPress={() => {handleNavigate(product.id)}} >
-            <ProductImage source={{ uri: product.image }} />
-            <ProductInfo>
-              <ProductTitle>{product.title}</ProductTitle>
-              <ProductPrice>{product.price}</ProductPrice>
-            </ProductInfo>
-            <Button onPress={() => handleAddProduct(product.id)}>
-              <ProductAmount>
-                <Icon name="add-shopping-cart" color="#FFF" size={20} />
-                <ButtonText>{amount[product.id] || 0}</ButtonText>
-              </ProductAmount>
-              <ButtonText>ADD TO CART</ButtonText>
-            </Button>
-          </ProductContainer>
-        ))}
+        { loading ? (
+            <ActivityArea>
+              <ActivityIndicator />
+            </ActivityArea>
+          ) : (
+            products.map(product => (
+              <ProductContainer key={product.id} onPress={() => {handleNavigate(product.id)}} >
+                <ProductImage source={{ uri: product.image }} />
+                <ProductInfo>
+                  <ProductTitle>{product.title}</ProductTitle>
+                  <ProductPrice>{product.price}</ProductPrice>
+                </ProductInfo>
+                <Button onPress={() => handleAddProduct(product.id)}>
+                  <ProductAmount>
+                    <Icon name="add-shopping-cart" color="#FFF" size={20} />
+                    <ButtonText>{amount[product.id] || 0}</ButtonText>
+                  </ProductAmount>
+                  <ButtonText>ADD TO CART</ButtonText>
+                </Button>
+              </ProductContainer>
+            ))
+          )
+        }
       </Container>
     </>
   );

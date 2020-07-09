@@ -5,6 +5,7 @@ import { bindActionCreators, Dispatch } from 'redux';
 import * as CartActions from '../../store/modules/cart/actions';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import Feather from 'react-native-vector-icons/Feather';
 
 import {
   Container,
@@ -28,7 +29,7 @@ import {
 
 import Header from '../../components/Header';
 
-interface Product {
+interface IProduct {
   id: number;
   title: string;
   price: number;
@@ -39,15 +40,15 @@ interface Product {
 }
 
 interface CartState {
-  cart: Product[]
+  cart: IProduct[]
 }
 
 const Cart: React.FC<CartState> = ({ cart, total, removeFromCart, updateAmountRequest }: any) => {
-  const increment = useCallback((product: Product) => {
+  const increment = useCallback((product: IProduct) => {
     updateAmountRequest(product.id, product.amount + 1);
   }, []);
   
-  const decrement = useCallback((product: Product) => {
+  const decrement = useCallback((product: IProduct) => {
     updateAmountRequest(product.id, product.amount - 1);
   }, []);
   
@@ -56,7 +57,7 @@ const Cart: React.FC<CartState> = ({ cart, total, removeFromCart, updateAmountRe
       <Header />
       <Background>
         <Container>
-          { cart.map((product: Product) => (
+          { cart.map((product: IProduct) => (
           <>
             <Product key={product.id} >
               <ProductImage source={{ uri: product.image }} />
@@ -87,15 +88,25 @@ const Cart: React.FC<CartState> = ({ cart, total, removeFromCart, updateAmountRe
             </Divider>
           </>
           )) }
-          <TotalArea>
-            <TotalText>TOTAL</TotalText>
-            <Total>{total}</Total>
-          </TotalArea>
-          <Button>
-            <ButtonText>
-              FINALIZAR PEDIDO
-            </ButtonText>
-          </Button>
+          { total === 0 ? (
+            <TotalArea>
+              <Total>Oops...</Total>
+              <Feather name="frown" color="#ec135a" size={70} />
+              <TotalText>Sem produtos no seu carrinho</TotalText>
+            </TotalArea>
+          ) : (
+            <>
+              <TotalArea>
+                <TotalText>TOTAL</TotalText>
+                <Total>{total}</Total>
+              </TotalArea>
+              <Button>
+                <ButtonText>
+                  FINALIZAR PEDIDO
+                </ButtonText>
+              </Button>
+            </>
+          )}
         </Container>
       </Background>
     </>
@@ -103,11 +114,11 @@ const Cart: React.FC<CartState> = ({ cart, total, removeFromCart, updateAmountRe
 }
 
 const mapStateToProps = (state: any) => ({
-  cart: state.cart.map((product: Product) => ({
+  cart: state.cart.map((product: IProduct) => ({
     ...product,
     subtotal: product.price * product.amount,
   })),
-  total: state.cart.reduce((total, product) => {
+  total: state.cart.reduce((total: number, product: IProduct) => {
     return total + product.price * product.amount;
   }, 0),
 });

@@ -6,6 +6,7 @@ export const Container = styled.ScrollView`
   background-color: #ec135a;
   flex-direction: column;
   padding: 0 20px;
+  flex: 1;
 `;
 
 
@@ -67,4 +68,10 @@ export const ProductAmount = styled.View`
   align-items: center;
   justify-content: center;
   flex-direction: row;
+`;
+
+export const ActivityArea = styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
 `;
