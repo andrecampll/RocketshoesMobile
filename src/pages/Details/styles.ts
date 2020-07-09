@@ -1,100 +1,70 @@
 import styled from 'styled-components/native';
+import { RectButton } from 'react-native-gesture-handler';
+import { darken } from 'polished';
 
-export const Background = styled.ScrollView`
-  flex: 1;
+export const Container = styled.ScrollView`
   background-color: #ec135a;
-  padding: 10px 20px 0px;
+  flex-direction: column;
+  padding: 0 20px;
 `;
 
-export const Container = styled.View`
+
+export const ProductContainer = styled.TouchableOpacity`
+  align-items: center;
   background-color: #fff;
+  margin: 10px 0;
   border-radius: 5px;
-  margin-bottom: 15px;
+  padding: 10px;
 `;
 
 export const ProductImage = styled.Image`
-  width: 90px;
-  height: 90px;
+  width: 350px;
+  height: 350px;
+`;
+
+export const ProductTitle = styled.Text`
+  font-size: 15px;
+  font-family: sans-serif;
+`;
+
+export const ProductPrice = styled.Text`
+  font-size: 20px;
+  font-family: sans-serif;
+  font-weight: bold;
 `;
 
 export const Button = styled.TouchableOpacity`
   background-color: #ec135a;
-  border-radius: 4px;
+  width: 100%;
+  height: 50px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 12px 20px;
-  margin: 10px;
+  border-radius: 5px;
+  margin-top: 5px;
+  flex-direction: row;
+  padding-right: 32%;
+  justify-content: space-between;
 `;
 
 export const ButtonText = styled.Text`
+  font-size: 16px;
   color: #fff;
+  font-family: sans-serif;
   font-weight: bold;
-`;
-
-export const Product = styled.View`
-  flex-direction: row;
-  align-items: center;
-  padding: 10px;
 `;
 
 export const ProductInfo = styled.View`
-  flex: 1;
-  padding: 5px 10px 30px 5px;
+  width: 100%;
 `;
 
-export const ProductPrice = styled.Text`
-  font-weight: bold;
-  font-size: 15px;
-`;
-
-export const ProductTitle = styled.Text`
-  font-size: 16px;
-`;
-
-export const ActionButton = styled.TouchableOpacity``;
-
-export const Divider = styled.View`
-  flex-direction: row;
-  align-items: center;
-  background-color: #ddd;
-  padding: 10px;
-`;
-
-export const ActionArea = styled.View`
-  flex-direction: row;
-  align-items: center;
-  flex: 1;
-`;
-
-export const Subtotal = styled.Text`
-  font-weight: bold;
-  font-size: 16px;
-`;
-
-export const Quantity = styled.TextInput`
-  background-color: #fff;
-  border-radius: 3px;
-  height: 25px;
-  width: 40px;
-  margin: 0 10px;
-  padding: 0;
-  text-align: center;
-`;
-
-export const TotalArea = styled.View`
+export const ProductAmount = styled.View`
+  background-color: ${darken(0.09, '#ec135a')};
+  width: 25%;
+  height: 100%;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  flex-direction: row;
 `;
-
-export const TotalText = styled.Text`
-  color: #999;
-  font-size: 20px;
-`;
-
-export const Total = styled.Text`
-  font-weight: bold;
-  font-size: 30px;
-`;
-
