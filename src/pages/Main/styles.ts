@@ -19,8 +19,10 @@ export const ProductContainer = styled.TouchableOpacity`
 `;
 
 export const ProductImage = styled.Image`
-  width: 200px;
-  height: 200px;
+  width: 250px;
+  height: 250px;
+  box-shadow: 4px 12px 10px #312e38;
+  transform: rotate(28deg) translateY(-20px) translateX(10px);
 `;
 
 export const ProductTitle = styled.Text`
